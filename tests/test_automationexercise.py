@@ -20,9 +20,18 @@ class TestAutomationTask:
 
     def test_validate_homepage(self, driver):
         """
-        Test to Login User with correct email and password
+        Test to validate the homepage loads correctly and the 'Home' navigation link is present and styled.
 
+        This test performs the following steps:
+        1. Navigate to the site's base URL.
+        2. Wait for the 'Home' navigation link to be visible.
+        3. Assert the 'Home' link is displayed.
+        4. Assert the 'Home' link contains 'orange' in its inline style attribute indicating expected styling.
 
+        Expected Results:
+        - The homepage loads successfully.
+        - The 'Home' navigation link is visible on the page.
+        - The 'Home' link's style attribute includes the color 'orange'.
         """
         driver.get(self.base_url)
         home_element = WebDriverWait(driver, 10).until(
@@ -84,9 +93,17 @@ class TestAutomationTask:
 
     def test_validate_logout(self, driver):
         """
-        Test to logout after the login
+        Test to verify the logout functionality after a successful login.
 
+        This test performs the following steps:
+        1. Navigate to the login page
+        2. Enter valid email and password and submit to log in
+        3. Click the 'Logout' link
+        4. Verify that the user is redirected back to the login page
 
+        Expected results:
+        - The user is successfully logged out
+        - The current URL contains '/login' indicating the login page
         """
         # Navigate to the login page
         driver.get(self.base_url + "login")
@@ -126,9 +143,17 @@ class TestAutomationTask:
 
     def test_validate_incorrect_login(self, driver):
         """
-        Test to Login User with incorrect email and password.
+        Test to verify that login fails when incorrect credentials are used.
 
+        This test performs the following steps:
+        1. Navigate to the login page.
+        2. Enter a valid email address and an incorrect password.
+        3. Click the 'Login' button.
+        4. Verify that login is not successful and an error message is displayed.
 
+        Expected Results:
+        - An error message is shown indicating incorrect credentials.
+        - The 'Logged in as' element is not visible (user remains logged out).
         """
         # Navigate to the login page
         driver.get(self.base_url + "login")
