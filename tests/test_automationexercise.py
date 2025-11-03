@@ -80,3 +80,85 @@ class TestAutomationTask:
         assert logged_in_element.is_displayed()
         # Verify the username 'hagai tregerman' appears in the logged in message
         assert "hagai tregerman" in logged_in_element.text.lower()
+
+
+    def test_validate_logout(self, driver):
+        """
+        Test to logout after the login
+
+
+        """
+        # Navigate to the login page
+        driver.get(self.base_url + "login")
+
+        # Wait for the email input field to be visible and locate it
+        email_input_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.NAME, "email"))
+        )
+        # Enter the email address
+        email_input_element.send_keys("hagai.tregerman@gmail.com")
+
+        # Wait for the password input field to be visible and locate it
+        password_input_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.NAME, "password"))
+        )
+        # Enter the password
+        password_input_element.send_keys("KMsuTYNyY@Q5y")
+
+        # Wait for the login button to be visible and locate it
+        login_button_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, "//button[text()='Login']"))
+        )
+        # Click the login button to submit credentials
+        login_button_element.click()
+
+        # Wait for the logout button to be visible and locate it
+        logout_link_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, "//a[@href='/logout']"))
+        )
+        # Click the login button to submit credentials
+        logout_link_element.click()
+
+        # Verify that user is navigated to login page after logout
+        assert "/login" in driver.current_url
+
+
+
+    def test_validate_incorrect_login(self, driver):
+        """
+        Test to Login User with incorrect email and password.
+
+
+        """
+        # Navigate to the login page
+        driver.get(self.base_url + "login")
+
+        # Wait for the email input field to be visible and locate it
+        email_input_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.NAME, "email"))
+        )
+        # Enter the email address
+        email_input_element.send_keys("hagai.tregerman@gmail.com")
+
+        # Wait for the password input field to be visible and locate it
+        password_input_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.NAME, "password"))
+        )
+        # Enter the password
+        password_input_element.send_keys("123456789")
+
+        # Wait for the login button to be visible and locate it
+        login_button_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, "//button[text()='Login']"))
+        )
+        # Click the login button to submit credentials
+        login_button_element.click()
+
+        # Wait for the 'Logged in as' element to be visible after successful login
+        logged_in_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, "//a[contains(text(), 'Logged in as')]"))
+        )
+        # Verify the 'Logged in as' element is displayed
+        assert logged_in_element.is_displayed()
+        # Verify the username 'hagai tregerman' appears in the logged in message
+        assert "hagai tregerman" in logged_in_element.text.lower()
